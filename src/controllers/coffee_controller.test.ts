@@ -10,3 +10,25 @@ test("GET /coffee should return correct object", async () => {
     name: "Latte",
   });
 });
+
+test("GET /coffee with queryParam should return correct object", async () => {
+  const res = await request(app)
+    .get("/coffee")
+    .query({ coffeeName: "Americano" });
+
+  expect(res.statusCode).toEqual(200);
+  expect(res.body).toEqual({
+    drinkType: "Coffee",
+    name: "Americano",
+  });
+});
+
+test("GET /coffee with no queryParam should return correct object", async () => {
+  const res = await request(app).get("/coffee");
+
+  expect(res.statusCode).toEqual(200);
+  expect(res.body).toEqual({
+    drinkType: "Coffee",
+    name: "Latte",
+  });
+});
